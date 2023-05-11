@@ -7,12 +7,9 @@ from dotenv import load_dotenv
 from pathlib import Path
 import argparse
 
-env_path = Path('.') / '.env'
-parser = argparse.ArgumentParser(description='Программа проверяет количество переходов на сайт по биту')
-parser.add_argument('src', help="ссылка на сайт")
-args = parser.parse_args()
 
 BASE_URL = 'https://api-ssl.bitly.com/v4/'
+
 
 def shorten_link(url, token):
     headers = { 
@@ -51,8 +48,11 @@ def is_bitlink(url, token):
 
 
 if __name__ == "__main__":
-    #bitly_token = os.environ["BITLY_TOKEN"]
-    #bitly_token = '9813a26d8083d996a5a23cc2a61f592b90bc6175'
+    parser = argparse.ArgumentParser(description='Программа проверяет количество переходов на сайт по биту')
+    parser.add_argument('src', help="ссылка на сайт")
+    args = parser.parse_args()
+    env_path = Path('.') / '.env'
+    load_dotenv()
     bitly_token = os.getenv("BITLY_TOKEN")
     try:
         bitlink = args.src
